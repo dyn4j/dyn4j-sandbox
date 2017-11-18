@@ -1,53 +1,104 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.dyn4j</groupId>
-  <artifactId>dyn4j-sandbox</artifactId>
-  <version>1.0.7</version>
-  <packaging>jar</packaging>
+	<groupId>org.dyn4j</groupId>
+	<artifactId>dyn4j-sandbox</artifactId>
+	<version>1.0.7</version>
+	<packaging>jar</packaging>
 
-  <name>dyn4j-sandbox</name>
-  <url>http://www.dyn4j.org</url>
+	<name>dyn4j-sandbox</name>
+	<url>http://www.dyn4j.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-    	<groupId>org.dyn4j</groupId>
-    	<artifactId>dyn4j</artifactId>
-    	<version>3.2.4</version>
-    </dependency>
-    <dependency>
-    	<groupId>org.jogamp.jogl</groupId>
-    	<artifactId>jogl-all</artifactId>
-    	<version>2.3.2</version>
-    </dependency>
-    <dependency>
-    	<groupId>org.jogamp.gluegen</groupId>
-    	<artifactId>gluegen-rt</artifactId>
-    	<version>2.3.2</version>
-    </dependency>
-  </dependencies>
-  <inceptionYear>2010</inceptionYear>
-  <description>A Java desktop application for testing and playing with dyn4j.</description>
-  <organization>
-  	<name>dyn4j</name>
-  	<url>http://www.dyn4j.org</url>
-  </organization>
-  <scm>
-  	<url>https://github.com/dyn4j/dyn4j-sandbox</url>
-  </scm>
-  <issueManagement>
-  	<system>GitHub Issues</system>
-  	<url>https://github.com/dyn4j/dyn4j-sandbox/issues</url>
-  </issueManagement>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.dyn4j</groupId>
+			<artifactId>dyn4j</artifactId>
+			<version>3.2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jogamp.jogl</groupId>
+			<artifactId>jogl-all-main</artifactId>
+			<version>2.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jogamp.gluegen</groupId>
+			<artifactId>gluegen-rt-main</artifactId>
+			<version>2.3.2</version>
+		</dependency>
+	</dependencies>
+	<inceptionYear>2010</inceptionYear>
+	<description>A Java desktop application for testing and playing with dyn4j.</description>
+	<organization>
+		<name>dyn4j</name>
+		<url>http://www.dyn4j.org</url>
+	</organization>
+	<scm>
+		<url>https://github.com/dyn4j/dyn4j-sandbox</url>
+	</scm>
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/dyn4j/dyn4j-sandbox/issues</url>
+	</issueManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>2.4</version>
+					<configuration>
+						<archive>
+							<addMavenDescriptor>false</addMavenDescriptor>
+							<compress>true</compress>
+							<manifest>
+								<addClasspath>true</addClasspath>
+								<mainClass>org.dyn4j.sandbox.Sandbox</mainClass>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              					<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+								<classpathPrefix>lib/</classpathPrefix>
+							</manifest>
+						</archive>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<version>3.0.2</version>
+					<executions>
+						<execution>
+							<id>copy-dependencies</id>
+							<phase>package</phase>
+							<goals>
+								<goal>copy-dependencies</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${project.build.directory}/lib/</outputDirectory>
+								<overWriteReleases>false</overWriteReleases>
+					              <overWriteSnapshots>false</overWriteSnapshots>
+					              <overWriteIfNewer>true</overWriteIfNewer>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		
+		<plugins>
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>
