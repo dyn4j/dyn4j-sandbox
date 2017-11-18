@@ -8,7 +8,7 @@
   <packaging>jar</packaging>
 
   <name>dyn4j-sandbox</name>
-  <url>http://maven.apache.org</url>
+  <url>http://www.dyn4j.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -37,4 +37,17 @@
     	<version>2.3.2</version>
     </dependency>
   </dependencies>
+  <inceptionYear>2010</inceptionYear>
+  <description>A Java desktop application for testing and playing with dyn4j.</description>
+  <organization>
+  	<name>dyn4j</name>
+  	<url>http://www.dyn4j.org</url>
+  </organization>
+  <scm>
+  	<url>https://github.com/dyn4j/dyn4j-sandbox</url>
+  </scm>
+  <issueManagement>
+  	<system>GitHub Issues</system>
+  	<url>https://github.com/dyn4j/dyn4j-sandbox/issues</url>
+  </issueManagement>
 </project>
