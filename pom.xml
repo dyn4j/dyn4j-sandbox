@@ -54,6 +54,19 @@
 	<build>
 		<pluginManagement>
 			<plugins>
+
+				<!-- Build everything as Java 6 bytecode -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.7.0</version>
+					<configuration>
+						<source>6</source>
+						<target>6</target>
+						<release>6</release>
+					</configuration>
+				</plugin>
+
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
@@ -66,7 +79,7 @@
 								<addClasspath>true</addClasspath>
 								<mainClass>org.dyn4j.sandbox.Sandbox</mainClass>
 								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-              					<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+												<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 								<classpathPrefix>lib/</classpathPrefix>
 							</manifest>
 						</archive>
@@ -86,16 +99,40 @@
 							<configuration>
 								<outputDirectory>${project.build.directory}/lib/</outputDirectory>
 								<overWriteReleases>false</overWriteReleases>
-					              <overWriteSnapshots>false</overWriteSnapshots>
-					              <overWriteIfNewer>true</overWriteIfNewer>
+												<overWriteSnapshots>false</overWriteSnapshots>
+												<overWriteIfNewer>true</overWriteIfNewer>
 							</configuration>
 						</execution>
 					</executions>
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		
+
 		<plugins>
+			<!-- Check various preconditions for building. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.0.0-M1</version>
+				<executions>
+					<execution>
+					<id>enforce-rules</id>
+					<phase>validate</phase>
+					<goals>
+						<goal>enforce</goal>
+					</goals>
+					<configuration>
+						<rules>
+							<!-- Require JDK 9+ -->
+							<requireJavaVersion>
+								<version>[9,)</version>
+							</requireJavaVersion>
+						</rules>
+					</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
 			</plugin>
